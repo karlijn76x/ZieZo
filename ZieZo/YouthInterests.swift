@@ -22,61 +22,84 @@ struct YouthInterests: View {
         Interest(name: "Extreem"), Interest(name: "Showbizz"), Interest(name: "Spionage"), Interest(name: "Uniek")
     ]
     
+    @State private var showError = false  // Geeft een foutmelding als er niets is geselecteerd
+    @State private var navigateToLoading = false  // Controleert of we naar de volgende pagina moeten gaan
+    
     var body: some View {
-        ZStack {
-            Image("BackgroundYoung")
-                .resizable()
-                .scaledToFill()
-                .ignoresSafeArea()
-            
-            VStack {
-                // Bovenste gedeelte: Logo en tekstwolk
-                HStack {
-                    Image("ZieZoLogo")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 110, height: 120)
+        NavigationStack {
+            ZStack {
+                Image("BackgroundYoung")
+                    .resizable()
+                    .scaledToFill()
+                    .ignoresSafeArea()
+                
+                VStack {
+                    // Bovenste gedeelte: Logo en tekstwolk
+                    HStack {
+                        Image("ZieZoLogo")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 110, height: 120)
 
-                    Text("Waar ben je geïnteresseerd in om te weten?")
-                        .font(.system(size: 20, weight: .bold))
-                        .foregroundColor(Color(hex: "0C0850"))
-                        .padding()
-                        .background(RoundedRectangle(cornerRadius: 20).fill(Color.white.opacity(0.6)))
+                        Text("Waar ben je geïnteresseerd in om te weten?")
+                            .font(.system(size: 20, weight: .bold))
+                            .foregroundColor(Color(hex: "0C0850"))
+                            .padding()
+                            .background(RoundedRectangle(cornerRadius: 20).fill(Color.white.opacity(0.6)))
+
+                        Spacer()
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.top, 50)
 
                     Spacer()
-                }
-                .padding(.horizontal, 20)
-                .padding(.top, 50)
+                    
+                    // Midden: De bubbels
+                    FlowLayout(items: $interests) { interest in
+                        InterestBubble(interest: interest, onTap: {
+                            if let index = interests.firstIndex(where: { $0.id == interest.id }) {
+                                interests[index].isSelected.toggle()
+                            }
+                        })
+                    }
+                    .padding(.horizontal, 16)
+                    
+                    Spacer()
 
-                Spacer()
-                
-                // Midden: De bubbels
-                FlowLayout(items: $interests) { interest in
-                    InterestBubble(interest: interest, onTap: {
-                        if let index = interests.firstIndex(where: { $0.id == interest.id }) {
-                            interests[index].isSelected.toggle()
+                    // Foutmelding als er niets geselecteerd is
+                    if showError {
+                        Text("Selecteer minstens één interesse.")
+                            .foregroundColor(.red)
+                            .font(.system(size: 16, weight: .bold))
+                    }
+                    
+
+                    // 'Volgende' knop
+                    Button(action: {
+                        if interests.contains(where: { $0.isSelected }) {
+                            showError = false
+                            navigateToLoading = true
+                        } else {
+                            showError = true
                         }
-                    })
-                }
-                .padding(.horizontal, 16)
-                
-                Spacer()
+                    }) {
+                        Text("Volgende")
+                            .font(.system(size: 20, weight: .bold))
+                            .foregroundColor(Color(hex: "0C0850"))
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color(hex: "70BFED"))
+                            .cornerRadius(30)
+                            .overlay(RoundedRectangle(cornerRadius: 25).stroke(Color(hex: "0C0850"), lineWidth: 1))
+                    }
+                    
+                    .padding(.horizontal, 40)
+                    .padding(.bottom, 40)
 
-                // Onderaan: De 'Volgende' knop
-                Button(action: {
-                    print("Volgende geklikt")
-                }) {
-                    Text("Volgende")
-                        .font(.system(size: 20, weight: .bold))
-                        .foregroundColor(Color(hex: "0C0850"))
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color(hex: "70BFED"))
-                        .cornerRadius(30)
-                        .overlay(RoundedRectangle(cornerRadius: 25).stroke(Color(hex: "0C0850"), lineWidth: 1))
+                    // Navigatie naar LoadingYouth
+                    NavigationLink("", destination: LoadingYouth(), isActive: $navigateToLoading)
+                        .hidden()
                 }
-                .padding(.horizontal, 40)
-                .padding(.bottom, 50)
             }
         }
     }
@@ -88,20 +111,17 @@ struct InterestBubble: View {
     
     var body: some View {
         Text(interest.name)
-            .font(.system(size: 14, weight: interest.isSelected ? .bold : .regular))  // Vetgedrukt wanneer geselecteerd
+            .font(.system(size: 14, weight: interest.isSelected ? .bold : .regular))
             .padding()
             .frame(minWidth: 80, maxWidth: 190, minHeight: 90, maxHeight: 120)
-            // Achtergrondkleur met transparantie
             .background(Circle().fill(interest.isSelected ? Color(hex: "70BFED") : Color(hex: "70BFED").opacity(0.4)))
             .overlay(Circle().stroke(Color(hex: "0C0850"), lineWidth: 1))
-            // Tekstkleur aanpassen afhankelijk van selectie
             .foregroundColor(interest.isSelected ? Color(hex: "0C0850") : Color(hex: "0C0850"))
             .onTapGesture {
                 onTap()
             }
     }
 }
-
 
 struct FlowLayout<Item: Identifiable, Content: View>: View {
     @Binding var items: [Item]
@@ -140,6 +160,8 @@ struct FlowLayout<Item: Identifiable, Content: View>: View {
 }
 
 
+
+// Voorvertoning
 #Preview {
     YouthInterests()
 }
