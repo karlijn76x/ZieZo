@@ -14,11 +14,9 @@ struct RegisterScreen: View {
     var body: some View {
         NavigationView {
             ZStack {
-                
                 Image("BackgroundLogIn")
                     .resizable()
                     .ignoresSafeArea()
-                
                 
                 VStack(spacing: 20) {
                     Image("ZieZoLogo")
@@ -27,8 +25,6 @@ struct RegisterScreen: View {
                         .frame(width: 180, height: 180)
                         .padding(.top, 50)
                     
-        
-
                     // Invoervelden
                     VStack(spacing: 15) {
                         TextField("E-mail adres", text: $username)
@@ -41,7 +37,7 @@ struct RegisterScreen: View {
                             .cornerRadius(25)
                             .overlay(RoundedRectangle(cornerRadius: 25).stroke(Color(hex: "0C0850"), lineWidth: 1))
                         Spacer()
-
+                        
                         SecureField("Wachtwoord", text: $password)
                             .font(.system(size: 25, weight: .bold))
                             .foregroundColor(Color(hex: "0C0850"))
@@ -64,14 +60,10 @@ struct RegisterScreen: View {
                             .overlay(RoundedRectangle(cornerRadius: 25).stroke(Color(hex: "0C0850"), lineWidth: 1))
                     }
                     
-                    
-
-                    // LLeeftijdknoppen
+                    // Leeftijdknoppen
                     HStack(spacing: 20) {
-                        // Blauwe knop "<60"
-                        Button(action: {
-                            print("Leeftijd < 60")
-                        }) {
+                        // Blauwe knop "<60" met NavigationLink
+                        NavigationLink(destination: YouthInterests()) {
                             Text("<60")
                                 .font(.system(size: 25, weight: .bold))
                                 .foregroundColor(Color(hex: "0C0850"))
@@ -95,12 +87,10 @@ struct RegisterScreen: View {
                         }
                     }
                     .padding(.top, 20)
-
-
                     
-                    // let op bericht
+                    // Let op bericht
                     Text("Let op!")
-                        .font(.system(size: 20, weight: .bold))
+                        .font(.system(size: 22, weight: .bold))
                         .foregroundColor(Color(hex: "0C0850"))
                     Text("Gebruik alleen je voornaam en\n kies een sterk wachtwoord!")
                         .font(.system(size: 20))
@@ -110,7 +100,7 @@ struct RegisterScreen: View {
 
                     Spacer()
 
-                    // "Meld je aan" knop met NavigationLink
+                    // "Ga verder" knop met NavigationLink
                     NavigationLink(destination: RegisterScreen()) {
                         Text("Ga verder")
                             .font(.system(size: 25, weight: .bold))
@@ -121,18 +111,21 @@ struct RegisterScreen: View {
                             .overlay(RoundedRectangle(cornerRadius: 25).stroke(Color(hex: "0C0850"), lineWidth: 1))
                     }
                     .padding(.bottom, 30)
-                    
-                                    }
+                }
             }
         }
     }
 }
 
-
-
-
+// Simpele YouthInterestsView als placeholder
+struct YouthInterestsView: View {
+    var body: some View {
+        Text("Dit is de YouthInterests-pagina")
+            .font(.largeTitle)
+            .padding()
+    }
+}
 
 #Preview {
     RegisterScreen()
 }
-
