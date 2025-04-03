@@ -8,12 +8,26 @@
 import SwiftUI
 
 struct ElderlyMatchingKen: View {
+    @State var showPopup: Bool = false
+    
     var body: some View {
         ZStack {
            Image("BackgroundElders")
                 .resizable()
                 .edgesIgnoringSafeArea(.all)
             VStack {
+                HStack {
+                    Button(action: { showPopup = true }) {
+                        Image(systemName: "info.circle.fill")
+                            .font(.title)
+                            .foregroundColor(.blue)
+                            .padding()
+
+                    }
+                    Spacer()
+                }
+                .padding(.leading, 20)
+                
                 Image("KenImage")
                     .resizable()
                     .scaledToFill()
@@ -56,6 +70,10 @@ struct ElderlyMatchingKen: View {
             .padding(.bottom, 20)
             
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+            
+            if showPopup {
+                PopupView(onClose: { showPopup = false })
+            }
         }
     }
 }
