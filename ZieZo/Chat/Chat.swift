@@ -58,7 +58,20 @@ struct ChatView: View {
                         .font(.title)
                         .fontWeight(.bold)
                         .foregroundColor(Color(red: 12/255, green: 8/255, blue: 80/255))
-                        .padding(.trailing, 100)
+                        .padding(5)
+                    
+                    Button(action: {
+                        
+                    }) {
+                        Image(systemName: "video.fill")
+                            .font(.largeTitle)
+                            .foregroundColor(Color(red: 12/255, green: 8/255, blue: 80/255))
+                            .cornerRadius(10)
+                            .frame(width: 100, height: 100)
+                            .padding(.trailing, 20)
+                    }
+                    
+                    
                    
                 }
                 
