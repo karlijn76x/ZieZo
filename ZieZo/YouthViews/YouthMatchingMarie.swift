@@ -1,5 +1,5 @@
 //
-//  YouthMatchingGeert.swift
+//  YouthMatchingMarie.swift
 //  ZieZo
 //
 //  Created by Jasmin Hachmane on 03/04/2025.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct YouthMatchingGeert: View {
+struct YouthMatchingMarie: View {
     var body: some View {
         ZStack {
             Image("BackgroundYoungMatch")
@@ -15,7 +15,7 @@ struct YouthMatchingGeert: View {
                 .edgesIgnoringSafeArea(.all)
             
             VStack {
-                Image("GeertImage")
+                Image("MarieImage")
                     .resizable()
                     .scaledToFill()
                     .frame(width: 350, height: 450) // Afbeelding blijft groot
@@ -46,7 +46,7 @@ struct YouthMatchingGeert: View {
                     // Info Button (kleiner)
                     Button(action: {}) {
                         Image(systemName: "info.circle.fill")
-                            .font(.title2)  
+                            .font(.title2)
                             .foregroundColor(.yellow)
                             .frame(width: 40, height: 40)
                             .padding(6)
@@ -60,21 +60,22 @@ struct YouthMatchingGeert: View {
                 .padding(.horizontal, 35)
                 .padding(.top, 20)
                 
-                Text("Geert, 72")
-                                    .font(.system(size: 34, weight: .bold))
-                                    .foregroundColor(Color(hex: "#0C0850"))
-                                    .padding(.top, -50)
+                //Naam
+                Text("Marie, 81")
+                .font(.system(size: 34, weight: .bold))
+                .foregroundColor(Color(hex: "#0C0850"))
+                .padding(.top, -50)
                 
                 // Tekst gecentreerd in het midden
                 VStack(spacing: 20) {
-                    Text("Geert (72) is een avontuurlijke durfal die zijn adrenaline haalt uit extreme sporten, spooktochten en altijd wint met voetbal.")
+                    Text("Marie (81) is altijd avontuurlijk. Op haar 70ste reisde ze solo naar Zuid-Amerika en deed mee aan een traditioneel feest in de bergen van Peru.")
                         .font(.system(size: 16, weight: .light))
                         .foregroundColor(.black)
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 20)
                         .lineLimit(3) // Beperk het aantal regels als de tekst te lang is
 
-                    Text("Wat is de spannendste ervaring die ik ooit hebt meegemaakt tijdens een avontuur?")
+                    Text("Wat heeft ze meegemaakt tijdens haar reis?")
                         .font(.system(size: 16, weight: .bold))
                         .foregroundColor(.black)
                         .multilineTextAlignment(.center)
@@ -95,27 +96,9 @@ struct YouthMatchingGeert: View {
         }
     }
 }
-//Cirkels lay-out
-struct CircleButtonn: View {
-    var iconName: String
-    var color: Color
-    
-    var body: some View {
-        Button(action: {}) {
-            Image(systemName: iconName)
-                .font(.title2)
-                .foregroundColor(.white)
-                .frame(width: 65, height: 65)
-                .background(color)
-                .clipShape(Circle())
-                .overlay(
-                    Circle().stroke(Color(hex: "#0C0850"), lineWidth: 1)
-                )
-                .shadow(radius: 5)
-        }
-    }
-}
+
 
 #Preview {
-    YouthMatchingGeert()
+    YouthMatchingMarie()
 }
+
