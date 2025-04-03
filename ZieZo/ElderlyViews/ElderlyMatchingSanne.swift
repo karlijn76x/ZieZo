@@ -8,12 +8,28 @@
 import SwiftUI
 
 struct ElderlyMatchingSanne: View {
+    @State private var showPopup = false
+    
     var body: some View {
         ZStack {
-           Image("BackgroundElders")
+            Image("BackgroundElders")
                 .resizable()
                 .edgesIgnoringSafeArea(.all)
+            
             VStack {
+                HStack {
+                    Button(action: { showPopup = true }) {
+                        Image(systemName: "info.circle.fill")
+                            .font(.title)
+                            .foregroundColor(.blue)
+                            .padding()
+
+                    }
+                    Spacer()
+                }
+                .padding(.leading, 20)
+                
+                
                 Image("SanneImage")
                     .resizable()
                     .scaledToFill()
@@ -23,7 +39,6 @@ struct ElderlyMatchingSanne: View {
                         RoundedRectangle(cornerRadius: 50)
                             .stroke(Color.white, lineWidth: 4)
                     )
-                    .padding(.top, 40)
                 
                 Text("Sanne, 21")
                     .font(.title)
@@ -54,8 +69,11 @@ struct ElderlyMatchingSanne: View {
                     .clipShape(Circle())
             }
             .padding(.bottom, 20)
-            
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+            
+            if showPopup {
+                PopupView(onClose: { showPopup = false })
+            }
         }
     }
 }
@@ -77,9 +95,6 @@ struct CircleButton: View {
     }
 }
 
-struct ProfileView_Previews: PreviewProvider {
-    static var previews: some View {
-        ElderlyMatchingSanne()
-    }
+#Preview {
+    ElderlyMatchingSanne()
 }
-
