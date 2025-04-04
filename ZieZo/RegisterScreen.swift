@@ -69,6 +69,12 @@ struct RegisterScreen: View {
                             .overlay(RoundedRectangle(cornerRadius: 25).stroke(Color(hex: "0C0850"), lineWidth: 1))
                     }
                     .padding(.bottom, 20)
+                    
+                    Text("Let op! Gebruik alleen uw eerste naam en kies een sterk wachtwoord!")
+                        .font(.system(size: 22, weight: .light))
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(Color(hex: "0C0850"))
+                        
 
                     Button {
                         registerUser()
