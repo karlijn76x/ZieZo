@@ -51,9 +51,9 @@ struct ElderlyMatchingSanne: View {
                     .padding(.bottom, 20)
                 
                 HStack {
-                    CircleButton(iconName: "xmark", color: .red)
+                    CircleButton(iconName: "xmark", color: .red, destination: AnyView(ElderlyMatchingKen()))
                     Spacer()
-                    CircleButton(iconName: "checkmark", color: .green)
+                    CircleButton(iconName: "checkmark", color: .green, destination: AnyView(ChatCallDashboard()))
                 }
                 .padding(.horizontal, 12)
                 .padding(.bottom, 20)
@@ -85,9 +85,10 @@ struct ElderlyMatchingSanne: View {
 struct CircleButton: View {
     var iconName: String
     var color: Color
+    var destination: AnyView
     
     var body: some View {
-        Button(action: {}) {
+        NavigationLink(destination: destination) {
             Image(systemName: iconName)
                 .font(.largeTitle)
                 .foregroundColor(.white)
@@ -98,6 +99,7 @@ struct CircleButton: View {
         }
     }
 }
+
 
 #Preview {
     ElderlyMatchingSanne()

@@ -11,7 +11,6 @@ import SwiftUI
 
 struct ChatCallDashboardYouth: View {
     var body: some View {
-        NavigationStack {
             ZStack {
                 Image("BackgroundYoungMatch")
                     .resizable()
@@ -61,7 +60,6 @@ struct ChatCallDashboardYouth: View {
             }
         }
     }
-}
 
 // Component voor de contactrijen
 struct ContactRoww: View {

@@ -12,7 +12,6 @@ struct LogIn: View {
     @State private var password = ""
     
     var body: some View {
-        NavigationView {
             ZStack {
                 
                 Image("BackgroundLogIn")
@@ -101,7 +100,7 @@ struct LogIn: View {
             }
         }
     }
-}
+
 
 // Extensie om hex-kleuren te gebruiken in SwiftUI
 extension Color {

@@ -12,7 +12,6 @@ struct RegisterScreen: View {
     @State private var password = ""
     
     var body: some View {
-        NavigationView {
             ZStack {
                 Image("BackgroundLogIn")
                     .resizable()
@@ -115,8 +114,6 @@ struct RegisterScreen: View {
             
         }
     }
-}
-
 
 #Preview {
     RegisterScreen()

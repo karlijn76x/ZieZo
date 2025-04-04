@@ -11,7 +11,6 @@ struct ElderlyMatchingKen: View {
     @State var showPopup: Bool = false
     
     var body: some View {
-        NavigationView {
             ZStack {
                 Image("BackgroundElders")
                     .resizable()
@@ -38,7 +37,7 @@ struct ElderlyMatchingKen: View {
                             RoundedRectangle(cornerRadius: 50)
                                 .stroke(Color.white, lineWidth: 4)
                         )
-                        .padding(.top, 40)
+                    
 
                     Text("Ken, 22")
                         .font(.title)
@@ -51,18 +50,11 @@ struct ElderlyMatchingKen: View {
                         .padding(.bottom, 20)
 
                     HStack {
-                        // Rode knop (X) - Navigatie naar 'ElderlyMatchingSanne'
-                        NavigationLink(destination: ElderlyMatchingSanne()) {
-                            CircleButton(iconName: "xmark", color: .red)
-                        }
-
+                        CircleButton(iconName: "xmark", color: .red, destination: AnyView(ElderlyMatchingSanne()))
                         Spacer()
-
-                        // Groene knop (Checkmark) - Navigatie naar 'ChatCallDashboard'
-                        NavigationLink(destination: ChatCallDashboard()) {
-                            CircleButton(iconName: "checkmark", color: .green)
-                        }
+                        CircleButton(iconName: "checkmark", color: .green, destination: AnyView(ChatCallDashboard()))
                     }
+
                     .padding(.horizontal, 12)
                     .padding(.bottom, 20)
                 }
@@ -89,7 +81,7 @@ struct ElderlyMatchingKen: View {
             }
         }
     }
-}
+
 
 struct ElderlyMatchingKen_Previews: PreviewProvider {
     static var previews: some View {

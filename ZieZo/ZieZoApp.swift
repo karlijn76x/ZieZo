@@ -11,7 +11,9 @@ import SwiftUI
 struct ZieZoApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationStack{
+                LoadingScreen()
+            }
         }
     }
 }

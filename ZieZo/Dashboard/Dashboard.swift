@@ -9,7 +9,6 @@ import SwiftUI
 
 struct Dashboard: View {
     var body: some View {
-        NavigationView {
             ZStack {
                 Image("BackgroundElders")
                     .resizable()
@@ -54,7 +53,6 @@ struct Dashboard: View {
             }
         }
     }
-}
 
 // Stijl voor de knoppen
 struct CustomButton: View {

@@ -12,7 +12,6 @@ struct LoadingEldery: View {
     @State private var navigateToNextScreen = false  // Variabele voor navigatie
 
     var body: some View {
-        NavigationView {
             ZStack {
                 Image("BackgroundLogIn")
                     .resizable()
@@ -55,7 +54,7 @@ struct LoadingEldery: View {
             )
         }
     }
-}
+
 
 #Preview {
     LoadingEldery()
