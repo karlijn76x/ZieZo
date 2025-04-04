@@ -47,7 +47,7 @@ struct RegisterScreen: View {
                             .background(Color(hex: "70BFED").opacity(0.4))
                             .cornerRadius(25)
                             .overlay(RoundedRectangle(cornerRadius: 25).stroke(Color(hex: "0C0850"), lineWidth: 1))
-                        Spacer()
+                        
                         
                         TextField("Eerste Naam", text: $username)
                             .font(.system(size: 25, weight: .bold))
@@ -73,10 +73,8 @@ struct RegisterScreen: View {
                                 .overlay(RoundedRectangle(cornerRadius: 25).stroke(Color(hex: "0C0850"), lineWidth: 1))
                         }
                         
-                        // Gele knop ">60"
-                        Button(action: {
-                            print("Leeftijd > 60")
-                        }) {
+                        // Gele knop ">60" met NavigationLink naar ElderyInterests
+                        NavigationLink(destination: ElderlyInterests()) {
                             Text(">60")
                                 .font(.system(size: 25, weight: .bold))
                                 .foregroundColor(Color(hex: "0C0850"))
@@ -87,10 +85,11 @@ struct RegisterScreen: View {
                         }
                     }
                     .padding(.top, 20)
+
                     
                     // Let op bericht
                     Text("Let op!")
-                        .font(.system(size: 22, weight: .bold))
+                        .font(.system(size: 20, weight: .bold))
                         .foregroundColor(Color(hex: "0C0850"))
                     Text("Gebruik alleen je voornaam en\n kies een sterk wachtwoord!")
                         .font(.system(size: 20))
@@ -113,18 +112,11 @@ struct RegisterScreen: View {
                     .padding(.bottom, 30)
                 }
             }
+            
         }
     }
 }
 
-// Simpele YouthInterestsView als placeholder
-struct YouthInterestsView: View {
-    var body: some View {
-        Text("Dit is de YouthInterests-pagina")
-            .font(.largeTitle)
-            .padding()
-    }
-}
 
 #Preview {
     RegisterScreen()

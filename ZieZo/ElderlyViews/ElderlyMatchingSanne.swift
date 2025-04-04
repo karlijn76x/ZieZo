@@ -72,11 +72,15 @@ struct ElderlyMatchingSanne: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
             
             if showPopup {
-                PopupView(onClose: { showPopup = false })
+                            PopupView(onClose: { showPopup = false })
+                        }
+                    }
+                    .onAppear {
+                        showPopup = true  // Zorg ervoor dat de popup getoond wordt als de view verschijnt
+                    }
+                }
             }
-        }
-    }
-}
+
 
 struct CircleButton: View {
     var iconName: String
