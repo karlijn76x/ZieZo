@@ -37,7 +37,7 @@ struct Dashboard: View {
                     
                     // Klikbare knoppen
                     VStack(spacing: 80) {
-                        NavigationLink(destination: ElderlyMatchingSanne()) {
+                        NavigationLink(destination: ElderlyMatchingKen()) {
                             CustomButton(text: "Zoek personen")
                         }
                         NavigationLink(destination: ChatCallDashboard()) {

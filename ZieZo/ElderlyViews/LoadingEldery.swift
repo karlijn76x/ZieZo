@@ -1,13 +1,13 @@
 //
-//  LoadingYouth.swift
+//  LoadingEldery.swift
 //  ZieZo
 //
-//  Created by Jasmin Hachmane on 02/04/2025.
+//  Created by Jasmin Hachmane on 03/04/2025.
 //
 
 import SwiftUI
 
-struct LoadingYouth: View {
+struct LoadingEldery: View {
     @State private var rotation: Double = 0
     @State private var navigateToNextScreen = false  // Variabele voor navigatie
 
@@ -17,7 +17,7 @@ struct LoadingYouth: View {
                 Image("BackgroundLogIn")
                     .resizable()
                     .ignoresSafeArea()
-                
+
                 VStack(spacing: 5) {
                     Image("ZieZoLogo")
                         .resizable()
@@ -34,6 +34,11 @@ struct LoadingYouth: View {
                         .font(.system(size: 30, weight: .bold))
                         .foregroundColor(Color(hex: "0C0850"))
                         .offset(y: -50)
+
+                    Text("Straks ziet u uw match\n en krijgt u eerst uitleg\n        over de app.")
+                        .font(.system(size: 30, weight: .light))
+                        .foregroundColor(Color(hex: "0C0850"))
+                        .offset(y: -20)
                 }
             }
             .onAppear {
@@ -44,16 +49,15 @@ struct LoadingYouth: View {
                 }
             }
             .background(
-                NavigationLink(destination: YouthMatchingGeert(), isActive: $navigateToNextScreen) {
-                    EmptyView()  // Lege view die navigatie activeert
+                NavigationLink(destination: ElderlyMatchingKen(), isActive: $navigateToNextScreen) {
+                    EmptyView()
                 }
             )
         }
     }
 }
 
-
 #Preview {
-    LoadingYouth()
+    LoadingEldery()
 }
 
