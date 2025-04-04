@@ -1,19 +1,21 @@
-//
-//  ZieZoApp.swift
-//  ZieZo
-//
-//  Created by Karlijn van den Herik on 01/04/2025.
-//
-
 import SwiftUI
+import FirebaseCore
+import FirebaseAuth
 
 @main
 struct ZieZoApp: App {
+    @StateObject var authViewModel = AuthViewModel()
+
+    init() {
+        FirebaseApp.configure() 
+    }
+
     var body: some Scene {
         WindowGroup {
-            NavigationStack{
+            NavigationStack {
                 LoadingScreen()
             }
+            .environmentObject(authViewModel)
         }
     }
 }

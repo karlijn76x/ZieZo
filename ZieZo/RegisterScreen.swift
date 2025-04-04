@@ -1,22 +1,22 @@
-//
-//  LogIn.swift
-//  ZieZo
-//
-//  Created by Jasmin Hachmane on 01/04/2025.
-//
-
 import SwiftUI
 
 struct RegisterScreen: View {
-    @State private var username = ""
+    @State private var email = ""
     @State private var password = ""
-    
+    @State private var firstName = ""
+    @State private var age = "" 
+
+    @EnvironmentObject var authViewModel: AuthViewModel
+    @State private var registrationError: String? = nil
+    @State private var navigateToYouth = false
+    @State private var navigateToElderly = false
+
     var body: some View {
+        NavigationView {
             ZStack {
                 Image("BackgroundLogIn")
                     .resizable()
                     .ignoresSafeArea()
-                
                 VStack(spacing: 20) {
                     Image("ZieZoLogo")
                         .resizable()
@@ -24,9 +24,10 @@ struct RegisterScreen: View {
                         .frame(width: 180, height: 180)
                         .padding(.top, 50)
                     
-                    // Invoervelden
                     VStack(spacing: 15) {
-                        TextField("E-mail adres", text: $username)
+                        TextField("E-mail adres", text: $email)
+                            .keyboardType(.emailAddress)
+                            .autocapitalization(.none)
                             .font(.system(size: 25, weight: .bold))
                             .foregroundColor(Color(hex: "0C0850"))
                             .multilineTextAlignment(.center)
@@ -35,7 +36,6 @@ struct RegisterScreen: View {
                             .background(Color(hex: "70BFED").opacity(0.4))
                             .cornerRadius(25)
                             .overlay(RoundedRectangle(cornerRadius: 25).stroke(Color(hex: "0C0850"), lineWidth: 1))
-                        Spacer()
                         
                         SecureField("Wachtwoord", text: $password)
                             .font(.system(size: 25, weight: .bold))
@@ -47,8 +47,18 @@ struct RegisterScreen: View {
                             .cornerRadius(25)
                             .overlay(RoundedRectangle(cornerRadius: 25).stroke(Color(hex: "0C0850"), lineWidth: 1))
                         
-                        
-                        TextField("Eerste Naam", text: $username)
+                        TextField("Eerste Naam", text: $firstName)
+                            .font(.system(size: 25, weight: .bold))
+                            .foregroundColor(Color(hex: "0C0850"))
+                            .multilineTextAlignment(.center)
+                            .padding()
+                            .frame(width: 320, height: 50)
+                            .background(Color(hex: "70BFED").opacity(0.4))
+                            .cornerRadius(25)
+                            .overlay(RoundedRectangle(cornerRadius: 25).stroke(Color(hex: "0C0850"), lineWidth: 1))
+
+                        TextField("Leeftijd", text: $age)
+                            .keyboardType(.numberPad)
                             .font(.system(size: 25, weight: .bold))
                             .foregroundColor(Color(hex: "0C0850"))
                             .multilineTextAlignment(.center)
@@ -58,49 +68,12 @@ struct RegisterScreen: View {
                             .cornerRadius(25)
                             .overlay(RoundedRectangle(cornerRadius: 25).stroke(Color(hex: "0C0850"), lineWidth: 1))
                     }
-                    
-                    // Leeftijdknoppen
-                    HStack(spacing: 20) {
-                        // Blauwe knop "<60" met NavigationLink
-                        NavigationLink(destination: YouthInterests()) {
-                            Text("<60")
-                                .font(.system(size: 25, weight: .bold))
-                                .foregroundColor(Color(hex: "0C0850"))
-                                .frame(width: 130, height: 50)
-                                .background(Color(hex: "70BFED"))
-                                .cornerRadius(25)
-                                .overlay(RoundedRectangle(cornerRadius: 25).stroke(Color(hex: "0C0850"), lineWidth: 1))
-                        }
-                        
-                        // Gele knop ">60" met NavigationLink naar ElderyInterests
-                        NavigationLink(destination: ElderlyInterests()) {
-                            Text(">60")
-                                .font(.system(size: 25, weight: .bold))
-                                .foregroundColor(Color(hex: "0C0850"))
-                                .frame(width: 130, height: 50)
-                                .background(Color(hex: "FAD15F"))
-                                .cornerRadius(25)
-                                .overlay(RoundedRectangle(cornerRadius: 25).stroke(Color(hex: "0C0850"), lineWidth: 1))
-                        }
-                    }
-                    .padding(.top, 20)
+                    .padding(.bottom, 20)
 
-                    
-                    // Let op bericht
-                    Text("Let op!")
-                        .font(.system(size: 20, weight: .bold))
-                        .foregroundColor(Color(hex: "0C0850"))
-                    Text("Gebruik alleen je voornaam en\n kies een sterk wachtwoord!")
-                        .font(.system(size: 20))
-                        .foregroundColor(Color(hex: "0C0850"))
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 30)
-
-                    Spacer()
-
-                    // "Ga verder" knop met NavigationLink
-                    NavigationLink(destination: RegisterScreen()) {
-                        Text("Ga verder")
+                    Button {
+                        registerUser()
+                    } label: {
+                        Text("Registreer")
                             .font(.system(size: 25, weight: .bold))
                             .foregroundColor(Color(hex: "0C0850"))
                             .frame(width: 250, height: 50)
@@ -108,13 +81,58 @@ struct RegisterScreen: View {
                             .cornerRadius(25)
                             .overlay(RoundedRectangle(cornerRadius: 25).stroke(Color(hex: "0C0850"), lineWidth: 1))
                     }
-                    .padding(.bottom, 30)
+                    .onTapGesture {
+                                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                                }
+
+                    if let registrationError = registrationError {
+                        Text(registrationError)
+                            .foregroundColor(.red)
+                            .padding()
+                    }
+
+                    Spacer()
+
+                    
+                    NavigationLink(destination: YouthInterests(), isActive: $navigateToYouth) {
+                        EmptyView()
+                    }
+                    NavigationLink(destination: ElderlyInterests(), isActive: $navigateToElderly) {
+                        EmptyView()
+                    }
                 }
+                .padding()
             }
-            
+            .navigationBarHidden(true)
+            .onAppear {
+               
+            }
         }
     }
 
+    // Registration function
+    func registerUser() {
+        guard let ageInt = Int(age) else {
+            registrationError = "Voer een geldige leeftijd in."
+            return
+        }
+
+        authViewModel.register(email: email, password: password, name: firstName, age: ageInt) { error in
+            if let error = error {
+                registrationError = error.localizedDescription
+            } else {
+                registrationError = nil
+                if ageInt < 60 {
+                    navigateToYouth = true
+                } else {
+                    navigateToElderly = true
+                }
+            }
+        }
+    }
+}
+
 #Preview {
     RegisterScreen()
+        .environmentObject(AuthViewModel())
 }
