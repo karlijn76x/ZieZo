@@ -6,13 +6,35 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		032DC7CF2D9FE7E600FF7318 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 032DC7CE2D9FE7E600FF7318 /* FirebaseAuth */; };
+		032DC7D12D9FE7E600FF7318 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 032DC7D02D9FE7E600FF7318 /* FirebaseDatabase */; };
+		032DC7D32D9FE7E600FF7318 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 032DC7D22D9FE7E600FF7318 /* FirebaseStorage */; };
+		032DC7D72D9FECD400FF7318 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 032DC7D62D9FECD400FF7318 /* FirebaseFirestore */; };
+		032DC7D92D9FED0600FF7318 /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 032DC7D82D9FED0600FF7318 /* FirebaseFirestoreCombine-Community */; };
+		032DC8192D9FFC9900FF7318 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 032DC8182D9FFC9900FF7318 /* FirebaseCore */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		032DC7422D9BD25A00FF7318 /* ZieZo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZieZo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		032DC80F2D9FF5EA00FF7318 /* Exceptions for "ZieZo" folder in "ZieZo" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 032DC7412D9BD25A00FF7318 /* ZieZo */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		032DC7442D9BD25A00FF7318 /* ZieZo */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				032DC80F2D9FF5EA00FF7318 /* Exceptions for "ZieZo" folder in "ZieZo" target */,
+			);
 			path = ZieZo;
 			sourceTree = "<group>";
 		};
@@ -23,6 +45,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				032DC7D12D9FE7E600FF7318 /* FirebaseDatabase in Frameworks */,
+				032DC7D72D9FECD400FF7318 /* FirebaseFirestore in Frameworks */,
+				032DC7CF2D9FE7E600FF7318 /* FirebaseAuth in Frameworks */,
+				032DC7D92D9FED0600FF7318 /* FirebaseFirestoreCombine-Community in Frameworks */,
+				032DC8192D9FFC9900FF7318 /* FirebaseCore in Frameworks */,
+				032DC7D32D9FE7E600FF7318 /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +93,12 @@
 			);
 			name = ZieZo;
 			packageProductDependencies = (
+				032DC7CE2D9FE7E600FF7318 /* FirebaseAuth */,
+				032DC7D02D9FE7E600FF7318 /* FirebaseDatabase */,
+				032DC7D22D9FE7E600FF7318 /* FirebaseStorage */,
+				032DC7D62D9FECD400FF7318 /* FirebaseFirestore */,
+				032DC7D82D9FED0600FF7318 /* FirebaseFirestoreCombine-Community */,
+				032DC8182D9FFC9900FF7318 /* FirebaseCore */,
 			);
 			productName = ZieZo;
 			productReference = 032DC7422D9BD25A00FF7318 /* ZieZo.app */;
@@ -94,6 +128,9 @@
 			);
 			mainGroup = 032DC7392D9BD25A00FF7318;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				032DC7CD2D9FE7E600FF7318 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 032DC7432D9BD25A00FF7318 /* Products */;
 			projectDirPath = "";
@@ -255,6 +292,7 @@
 				DEVELOPMENT_TEAM = 2Y7FPD8C35;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ZieZo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -284,6 +322,7 @@
 				DEVELOPMENT_TEAM = 2Y7FPD8C35;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ZieZo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -324,6 +363,50 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		032DC7CD2D9FE7E600FF7318 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.11.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		032DC7CE2D9FE7E600FF7318 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 032DC7CD2D9FE7E600FF7318 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		032DC7D02D9FE7E600FF7318 /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 032DC7CD2D9FE7E600FF7318 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		032DC7D22D9FE7E600FF7318 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 032DC7CD2D9FE7E600FF7318 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+		032DC7D62D9FECD400FF7318 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 032DC7CD2D9FE7E600FF7318 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		032DC7D82D9FED0600FF7318 /* FirebaseFirestoreCombine-Community */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 032DC7CD2D9FE7E600FF7318 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseFirestoreCombine-Community";
+		};
+		032DC8182D9FFC9900FF7318 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 032DC7CD2D9FE7E600FF7318 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 032DC73A2D9BD25A00FF7318 /* Project object */;
 }

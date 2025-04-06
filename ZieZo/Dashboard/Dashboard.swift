@@ -1,15 +1,10 @@
-//
-//  Dashboard.swift
-//  ZieZo
-//
-//  Created by Jasmin Hachmane on 03/04/2025.
-//
-
 import SwiftUI
 
 struct Dashboard: View {
+    @EnvironmentObject var authViewModel: AuthViewModel  
+    @Environment(\.presentationMode) var presentationMode
+
     var body: some View {
-        NavigationView {
             ZStack {
                 Image("BackgroundElders")
                     .resizable()
@@ -43,8 +38,10 @@ struct Dashboard: View {
                         NavigationLink(destination: ChatCallDashboard()) {
                             CustomButton(text: "ChatCall")
                         }
-                        NavigationLink(destination: ProfielView()) {
-                            CustomButton(text: "Profiel")
+                        Button(action: {
+                            authViewModel.signOut()
+                        }) {
+                            CustomButton(text: "Sign Out") 
                         }
                     }
                     
@@ -54,32 +51,26 @@ struct Dashboard: View {
             }
         }
     }
-}
 
-// Stijl voor de knoppen
-struct CustomButton: View {
-    let text: String
+    // Stijl voor de knoppen
+    struct CustomButton: View {
+        let text: String
 
-    var body: some View {
-        Text(text)
-            .font(.system(size: 25, weight: .bold))
-            .foregroundColor(Color(hex: "0C0850"))
-            .frame(width: 250, height: 80)
-            .background(Color(hex: "FAD15F").opacity(0.6))
-            .cornerRadius(15)
-            .overlay(
-                RoundedRectangle(cornerRadius: 15)
-                    .stroke(Color(hex: "0C0850"), lineWidth: 3)
-            )
+        var body: some View {
+            Text(text)
+                .font(.system(size: 25, weight: .bold))
+                .foregroundColor(Color(hex: "0C0850"))
+                .frame(width: 250, height: 80)
+                .background(Color(hex: "FAD15F").opacity(0.6))
+                .cornerRadius(15)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 15)
+                        .stroke(Color(hex: "0C0850"), lineWidth: 3)
+                )
+        }
     }
-}
 
 
-struct ProfielView: View {
-    var body: some View {
-        Text("Profiel Pagina")
-    }
-}
 
 
 

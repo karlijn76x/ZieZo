@@ -1,14 +1,13 @@
-//
-//  LoadingScreen.swift
-//  ZieZo
-//
-//  Created by Jasmin Hachmane on 01/04/2025.
-//
-
 import SwiftUI
+import FirebaseAuth
+import FirebaseFirestore
 
 struct LoadingScreen: View {
+    @EnvironmentObject var authViewModel: AuthViewModel
     @State private var navigateToLogin = false
+    @State private var navigateToYouthDashboard = false
+    @State private var navigateToElderlyDashboard = false
+    @State private var isLoading = true 
 
     var body: some View {
         NavigationView {
@@ -40,16 +39,51 @@ struct LoadingScreen: View {
                 }
                 .padding(.bottom, 10)
 
-                // NavigationLink: De link naar LogIn scherm wordt automatisch geactiveerd na 5 seconden
+                // NavigationLinks (conditional based on login and age)
                 NavigationLink(destination: LogIn(), isActive: $navigateToLogin) {
                     EmptyView()
                 }
-                .onAppear {
-                    // Start de timer die na 5 seconden automatisch navigeert
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                        self.navigateToLogin = true
-                    }
+                NavigationLink(destination: ChatCallDashboardYouth(), isActive: $navigateToYouthDashboard) {
+                    EmptyView()
                 }
+                NavigationLink(destination: Dashboard(), isActive: $navigateToElderlyDashboard) {
+                    EmptyView()
+                }
+            }
+            .onAppear {
+                checkLoginStatus()
+            }
+        }
+        .navigationViewStyle(StackNavigationViewStyle())
+    }
+
+    func checkLoginStatus() {
+            if let user = Auth.auth().currentUser {
+                // User is logged in, get the age and navigate
+                fetchUserAgeAndNavigate(uid: user.uid)
+            } else {
+                // No user logged in, navigate to login
+                navigateToLogin = true
+            }
+    }
+
+    //func to navigate and check for age
+    func fetchUserAgeAndNavigate(uid: String) {
+        let db = Firestore.firestore()
+        db.collection("users").document(uid).getDocument { snapshot, error in
+            isLoading = false
+            if let error = error {
+                print("Error fetching user data: \(error)")
+                navigateToLogin = true
+            } else if let snapshot = snapshot, let data = snapshot.data(), let age = data["age"] as? Int {
+                if age < 60 {
+                    navigateToYouthDashboard = true
+                } else {
+                    navigateToElderlyDashboard = true
+                }
+            } else {
+                print("Age not found for user")
+                navigateToLogin = true
             }
         }
     }
@@ -57,11 +91,5 @@ struct LoadingScreen: View {
 
 #Preview {
     LoadingScreen()
+        .environmentObject(AuthViewModel())
 }
-
-
-
-
-
-
-

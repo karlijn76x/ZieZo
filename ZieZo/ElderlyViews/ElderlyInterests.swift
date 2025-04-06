@@ -11,7 +11,6 @@ struct ElderlyInterests: View {
     ]
 
     var body: some View {
-        NavigationView {  // Zorg ervoor dat je een NavigationView toevoegt als dat nog niet gedaan is
             ZStack {
                 Image("BackgroundElders")
                     .resizable()
@@ -99,7 +98,6 @@ struct ElderlyInterests: View {
             }
         }
     }
-}
 
 
 #Preview {

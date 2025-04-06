@@ -1,38 +1,31 @@
-//
-//  LogIn.swift
-//  ZieZo
-//
-//  Created by Jasmin Hachmane on 01/04/2025.
-//
-
 import SwiftUI
 
 struct LogIn: View {
-    @State private var username = ""
+    @State private var email = ""
     @State private var password = ""
-    
+    @EnvironmentObject var authViewModel: AuthViewModel
+    @State private var loginError: String? = nil
+    @State private var navigateToYouth = false
+    @State private var navigateToElderly = false
+
     var body: some View {
         NavigationView {
             ZStack {
-                
                 Image("BackgroundLogIn")
                     .resizable()
                     .ignoresSafeArea()
-                
-                
+
                 VStack(spacing: 20) {
                     Image("ZieZoLogo")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 250, height: 230)
                         .padding(.top, -10)
-                    
-                    // Welkomsttekst
+
                     Text("Welkom bij ZieZo!")
                         .font(.system(size: 35, weight: .bold))
                         .foregroundColor(Color(hex: "0C0850"))
 
-                    // Slogan
                     Text("De app die jong en oud verbindt \n– ontmoet, leer en ontdek samen!")
                         .font(.system(size: 20))
                         .foregroundColor(Color(hex: "0C0850"))
@@ -41,9 +34,10 @@ struct LogIn: View {
 
                     Spacer()
 
-                    // Invoervelden
                     VStack(spacing: 15) {
-                        TextField("E-mail adres", text: $username)
+                        TextField("E-mail adres", text: $email)
+                            .keyboardType(.emailAddress)
+                            .autocapitalization(.none)
                             .font(.system(size: 25, weight: .bold))
                             .foregroundColor(Color(hex: "0C0850"))
                             .multilineTextAlignment(.center)
@@ -64,9 +58,14 @@ struct LogIn: View {
                             .overlay(RoundedRectangle(cornerRadius: 25).stroke(Color(hex: "0C0850"), lineWidth: 1))
                     }
 
-                    // Login knop
+                    if let loginError = loginError {
+                        Text(loginError)
+                            .foregroundColor(.red)
+                            .padding()
+                    }
+
                     Button(action: {
-                        print("Inloggen met \(username) en \(password)")
+                        loginUser()
                     }) {
                         Text("Login!")
                             .font(.system(size: 25, weight: .bold))
@@ -78,13 +77,11 @@ struct LogIn: View {
                     }
                     .padding(.top, 20)
 
-                    // Registratie prompt
                     Text("Nog geen account?")
                         .font(.system(size: 14))
                         .foregroundColor(Color(hex: "0C0850"))
                         .padding(.top, 10)
 
-                    // "Meld je aan" knop met NavigationLink
                     NavigationLink(destination: RegisterScreen()) {
                         Text("Meld je aan")
                             .font(.system(size: 25, weight: .bold))
@@ -97,6 +94,33 @@ struct LogIn: View {
                     .padding(.bottom, 30)
                     
                     Spacer()
+                }
+            }
+            .navigationBarHidden(true)
+            .background(
+                Group {
+                    NavigationLink(destination: YouthInterests(), isActive: $navigateToYouth) {
+                        EmptyView()
+                    }
+                    NavigationLink(destination: ElderlyInterests(), isActive: $navigateToElderly) {
+                        EmptyView()
+                    }
+                }
+            )
+        }
+    }
+
+    // Login function
+    func loginUser() {
+        authViewModel.login(email: email, password: password) { error, age in
+            if let error = error {
+                loginError = error.localizedDescription
+            } else if let age = age {
+                loginError = nil
+                if age < 60 {
+                    navigateToYouth = true
+                } else {
+                    navigateToElderly = true
                 }
             }
         }
@@ -123,4 +147,5 @@ extension Color {
 
 #Preview {
     LogIn()
+        .environmentObject(AuthViewModel())
 }
