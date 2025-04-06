@@ -99,10 +99,10 @@ struct LogIn: View {
             .navigationBarHidden(true)
             .background(
                 Group {
-                    NavigationLink(destination: YouthInterests(), isActive: $navigateToYouth) {
+                    NavigationLink(destination: ChatCallDashboardYouth(), isActive: $navigateToYouth) {
                         EmptyView()
                     }
-                    NavigationLink(destination: ElderlyInterests(), isActive: $navigateToElderly) {
+                    NavigationLink(destination: Dashboard(), isActive: $navigateToElderly) {
                         EmptyView()
                     }
                 }
